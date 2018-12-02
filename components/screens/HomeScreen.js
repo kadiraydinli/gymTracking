@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet,Image,ScrollView} from 'react-native';
-import {Button,Text,Container,Header, Content, Footer, FooterTab,Body} from 'native-base';
+import {AppState,StyleSheet,Image,ScrollView} from 'react-native';
+import {Button,Text,Container,Header, Content, Footer, FooterTab,Body, View} from 'native-base';
+import Communications from 'react-native-communications';
+import PushNotification from 'react-native-push-notification';
+import PushController from '../screens/PushController';
+
 
 
 class HomeScreen extends React.Component{
@@ -8,26 +12,53 @@ class HomeScreen extends React.Component{
         header: null,
     };
 
+    constructor(props){
+        super(props);
+        this.state = {};
+        this.handleAppStateChange = this.handleAppStateChange.bind(this);
+        this.sendNotification = this.sendNotification.bind(this);
+    };
+
+    componentDidMount(){
+        AppState.addEventListener('change',this.handleAppStateChange);
+    };
+
+    componentWillUnmount(){
+        AppState.removeEventListener('change',this.handleAppStateChange);
+    };
+
+    handleAppStateChange(appState){
+        if(appState === 'background'){
+            PushNotification.localNotificationSchedule({
+                message: 'Oldu laaan sonunda!',
+                date: new Date(Date.now())
+            });
+        }
+    };
+
+    sendNotification(){
+        PushNotification.localNotification({
+            message: 'Butona bastın!'
+        });
+    };
+
     render(){
         return(
             <Container>
-                    <Content padder style={styles.content}>
-                        <Body style={styles.textBody}>
-                            <Text style={styles.messageText}>"Ben sporcunun zeki çevik aynı zamanda ahkalı olanını severim."</Text>
-                        </Body>
-                    </Content>
-                    <Button full success>
-                            <Text>Ara</Text>
+                <Content padder style={styles.content}>
+                    <Body style={styles.textBody}>
+                        <Text style={styles.messageText}>"Ben sporcunun zeki çevik aynı zamanda ahkalı olanını severim."</Text>
+                    </Body>
+                    <Button success onPress={this.sendNotification}>
+                        <Text>Bildirim Gönder</Text>
                     </Button>
-
+                    <PushController/>
+                </Content>
+                <Button full success onPress={()=>Communications.phonecall('05379952309',true)}>
+                    <Text>Ara</Text>
+                </Button>
                 <Footer style={styles.themeColor}>
                     <FooterTab style={styles.themeColor}>
-                        <Button onPress={()=>this.props.navigation.navigate("Profile")}>
-                            <Image 
-                                style={styles.footerButton}
-                                source={require('../icons/profile.png')}
-                            />
-                        </Button>
                         <Button onPress={()=>this.props.navigation.navigate("Diet")} >
                             <Image 
                                 style={styles.footerButton}
@@ -40,6 +71,12 @@ class HomeScreen extends React.Component{
                                 source={require('../icons/gym.png')}
                             />
                         </Button>
+                        <Button onPress={()=>this.props.navigation.navigate("Settings")}>
+                            <Image 
+                                style={styles.footerButton}
+                                source={require('../icons/settings.png')}
+                            />
+                        </Button>
                     </FooterTab>
                 </Footer>
             </Container>
@@ -48,7 +85,7 @@ class HomeScreen extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    content:{backgroundColor:'#C7CCCB'},
+    content:{},
     themeColor:{backgroundColor:'#006E5F'},
     contentScroll: {paddingVertical: 10},
     messageText:{color:'black',fontSize:35,textAlign:'center'},

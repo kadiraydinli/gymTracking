@@ -8,7 +8,6 @@ import ActivitiesDetailScreen from "./components/screens/ActivitiesDetailScreen"
 import DietListScreen from "./components/screens/DietListScreen";
 import HomeScreen from "./components/screens/HomeScreen";
 import ResetPasswordScreen from "./components/screens/ResetPasswordScreen";
-import ProfileScreen from "./components/screens/ProfileScreen";
 import SettingsScreen from "./components/screens/SettingsScreen";
 
 export default class App extends Component{
@@ -24,6 +23,5 @@ export const AppStackNavigator = createStackNavigator({
   ActivitiesDetail : ActivitiesDetailScreen,
   Diet : DietListScreen,
   ResetPassword : ResetPasswordScreen,
-  Profile : ProfileScreen,
   Settings : SettingsScreen
 });

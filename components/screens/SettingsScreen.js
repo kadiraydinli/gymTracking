@@ -11,7 +11,7 @@ class SettingsScreen extends React.Component {
       <Container>
       <Header style={styles.themeColor}>
         <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate("Profile")}>
+            <Button transparent onPress={()=> this.props.navigation.navigate("Home")}>
                 <Icon name='arrow-back'/>
             </Button>
         </Left>
