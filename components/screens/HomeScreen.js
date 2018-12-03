@@ -1,45 +1,11 @@
 import React, {Component} from 'react';
-import {AppState,StyleSheet,Image,ScrollView} from 'react-native';
-import {Button,Text,Container,Header, Content, Footer, FooterTab,Body, View} from 'native-base';
+import {StyleSheet,Image} from 'react-native';
+import {Button,Text,Container, Content, Footer, FooterTab,Body, View} from 'native-base';
 import Communications from 'react-native-communications';
-import PushNotification from 'react-native-push-notification';
-import PushController from '../screens/PushController';
-
-
 
 class HomeScreen extends React.Component{
     static navigationOptions = {
         header: null,
-    };
-
-    constructor(props){
-        super(props);
-        this.state = {};
-        this.handleAppStateChange = this.handleAppStateChange.bind(this);
-        this.sendNotification = this.sendNotification.bind(this);
-    };
-
-    componentDidMount(){
-        AppState.addEventListener('change',this.handleAppStateChange);
-    };
-
-    componentWillUnmount(){
-        AppState.removeEventListener('change',this.handleAppStateChange);
-    };
-
-    handleAppStateChange(appState){
-        if(appState === 'background'){
-            PushNotification.localNotificationSchedule({
-                message: 'Oldu laaan sonunda!',
-                date: new Date(Date.now())
-            });
-        }
-    };
-
-    sendNotification(){
-        PushNotification.localNotification({
-            message: 'Butona bastın!'
-        });
     };
 
     render(){
@@ -49,10 +15,6 @@ class HomeScreen extends React.Component{
                     <Body style={styles.textBody}>
                         <Text style={styles.messageText}>"Ben sporcunun zeki çevik aynı zamanda ahkalı olanını severim."</Text>
                     </Body>
-                    <Button success onPress={this.sendNotification}>
-                        <Text>Bildirim Gönder</Text>
-                    </Button>
-                    <PushController/>
                 </Content>
                 <Button full success onPress={()=>Communications.phonecall('05379952309',true)}>
                     <Text>Ara</Text>
