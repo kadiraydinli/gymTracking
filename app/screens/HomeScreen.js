@@ -84,18 +84,16 @@ class HomeScreen extends React.Component {
                 source={require("../assets/icons/diet.png")}
               />
             </Button>
-            <Button
-              onPress={() => this.props.navigation.navigate("Activities")}
-            >
+            <Button onPress={() => this.props.navigation.navigate("Exercise")}>
               <Image
                 style={styles.footerButton}
                 source={require("../assets/icons/gym.png")}
               />
             </Button>
-            <Button onPress={() => this.props.navigation.navigate("Settings")}>
+            <Button onPress={() => this.props.navigation.navigate("Profile")}>
               <Image
                 style={styles.footerButton}
-                source={require("../assets/icons/settings.png")}
+                source={require("../assets/icons/profile.png")}
               />
             </Button>
           </FooterTab>

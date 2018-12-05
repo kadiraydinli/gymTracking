@@ -11,15 +11,15 @@ export default class App extends Component<Props> {
     return <Root />;
   }
 }
-global.url = "http://3d5afff0.ngrok.io";
+global.url = "http://629a3d45.ngrok.io";
 
 import LoginScreen from "./app/screens/LoginScreen";
-import ActivitiesScreen from "./app/screens/ActivitiesScreen";
-import ActivitiesDetailScreen from "./app/screens/ActivitiesDetailScreen";
-import DietListScreen from "./app/screens/DietListScreen";
+import ExerciseScreen from "./app/screens/ExerciseScreen";
+import ExerciseDetailScreen from "./app/screens/ExerciseDetailScreen";
 import HomeScreen from "./app/screens/HomeScreen";
 import ResetPasswordScreen from "./app/screens/ResetPasswordScreen";
-import SettingsScreen from "./app/screens/SettingsScreen";
+import ProfileScreen from "./app/screens/ProfileScreen";
+import DietListScreen from "./app/screens/DietListScreen";
 
 /*export const AppStackNavigator = createStackNavigator({
   Login : LoginScreen,
@@ -41,9 +41,9 @@ export const TabNavigator = createBottomTabNavigator(
   {
     Home: { screen: Home },
     Diet: { screen: DietListScreen },
-    Settings: { screen: SettingsScreen },
-    Activities: { screen: ActivitiesScreen },
-    ActivitiesDetail: { screen: ActivitiesDetailScreen },
+    Profile: { screen: ProfileScreen },
+    Exercise: { screen: ExerciseScreen },
+    ExerciseDetail: { screen: ExerciseDetailScreen },
     ResetPassword: { screen: ResetPasswordScreen }
   },
   {

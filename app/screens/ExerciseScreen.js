@@ -18,7 +18,7 @@ import {
   Title
 } from "native-base";
 
-class ActivitiesScreen extends React.Component {
+class ExerciseScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -105,4 +105,4 @@ const styles = StyleSheet.create({
   footerButton: { width: 50, height: 50, tintColor: "#fff" }
 });
 
-export default ActivitiesScreen;
+export default ExerciseScreen;

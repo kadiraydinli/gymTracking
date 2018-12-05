@@ -70,7 +70,7 @@ class LoginScreen extends React.Component {
         });
       }
       //this.props.navigation.navigate("Home");
-      alert("oldu");
+      //alert("oldu");
       let toHome = await StackActions.reset({
         index: 0,
         actions: [NavigationActions.navigate({ routeName: "Home" })]
