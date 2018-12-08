@@ -58,8 +58,8 @@ class ExerciseScreen extends React.Component {
                   <Text style={styles.listText}>Hareket detayı</Text>
                 </Body>
                 <Right>
-                  <Button transparent>
-                    <Text style={styles.listButtonText}>İncele</Text>
+                  <Button rounded success>
+                    <Text style={styles.listButtonText} onPress={() => this.props.navigation.navigate("ExerciseDetail")}>İncele</Text>
                   </Button>
                 </Right>
               </ListItem>
@@ -74,7 +74,7 @@ class ExerciseScreen extends React.Component {
                 source={require("../assets/icons/backButton.png")}
               />
             </Button>
-            <Button bordered success style={styles.statusButton}>
+            <Button success style={styles.statusButton}>
               <Text style={styles.statusText}>Tamamlandı</Text>
             </Button>
             <Button>

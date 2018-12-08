@@ -13,50 +13,13 @@ import {
 import Communications from "react-native-communications";
 import Api from "../api";
 
+const words = require('../assets/json/words.json');
+const number = Math.floor(Math.random() * 4);
+
 class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
-
-  async _logoutAlert() {
-    try {
-      Alert.alert(
-        "Oturumu Kapat",
-        "Oturumu kapatmak istediğinden emin misin?",
-        [
-          {
-            text: "İptal",
-            style: "cancel"
-          },
-          {
-            text: "Oturumu Kapat",
-            onPress: () => this._logout()
-          }
-        ]
-      );
-    } catch (e) {}
-  }
-
-  async _logout() {
-    try {
-      await this.api.get("/api/logout");
-      await this.clear();
-    } catch (error) {
-      await this.clear();
-    }
-  }
-
-  async clear() {
-    try {
-      await this.api.clearItems();
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Login" })],
-        key: null
-      });
-      this.props.navigation.dispatch(resetAction);
-    } catch (e) {}
-  }
 
   render() {
     return (
@@ -65,7 +28,7 @@ class HomeScreen extends React.Component {
           <Api ref={ref => (this.api = ref)} />
           <Body style={styles.textBody}>
             <Text style={styles.messageText}>
-              "Ben sporcunun zeki çevik aynı zamanda ahkalı olanını severim."
+              {words.words[number]}
             </Text>
           </Body>
         </Content>

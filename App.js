@@ -11,7 +11,7 @@ export default class App extends Component<Props> {
     return <Root />;
   }
 }
-global.url = "http://629a3d45.ngrok.io";
+global.url = "http://d86299f0.ngrok.io/";
 
 import LoginScreen from "./app/screens/LoginScreen";
 import ExerciseScreen from "./app/screens/ExerciseScreen";
