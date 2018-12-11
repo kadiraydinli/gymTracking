@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  ScrollView,
+  FlatList,
+  RefreshControl,
+  View
+} from "react-native";
 import {
   Button,
   Text,
@@ -17,15 +24,85 @@ import {
   Icon,
   Title
 } from "native-base";
+import Api from "../api";
 
-class ExerciseScreen extends React.Component {
+export class ExerciseScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      exercises: null,
+      refreshing: false,
+      loadingPage: true,
+      gun: 1
+    };
+  }
+
+  componentDidMount() {
+    //sayfa açılınca yapılacak işlem
+    this.getCredentials();
+  }
+
+  async getCredentials() {
+    try {
+      let response = await this.api.get("mobile/exercises/" + this.state.gun);
+      if (response.length) {
+        this.setState({
+          exercises: response,
+          refreshing: false,
+          loadingPage: false
+        });
+      } else {
+        this.setState({
+          exercises: null,
+          refreshing: false,
+          loadingPage: false
+        });
+      }
+    } catch (e) {
+      this.setState({
+        exercises: null,
+        refreshing: false,
+        loadingPage: false
+      });
+    }
+  }
+
+  handleRefresh() {
+    this.setState({ refreshing: true }, function() {
+      this.getCredentials();
+    });
+  }
+
+  noItemDisplay() {
+    if (this.state.loadingPage) {
+      return (
+        <View style={styles.activityIndicator}>
+          {/*<Progress.Bar
+            width={scale(200)}
+            color={"#3bd555"}
+            indeterminate={true}
+          />*/}
+          <Text>Yükleniyor... </Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.section}>
+          <Text>Size atanan egzersiz yok</Text>
+          <Text>Yenilemek için sayfayı aşağı doğru çekin.</Text>
+        </View>
+      );
+    }
+  }
+
   render() {
     return (
       <Container>
+        <Api ref={ref => (this.api = ref)} />
         <Header style={styles.themeColor}>
           <Left>
             <Button
@@ -42,28 +119,56 @@ class ExerciseScreen extends React.Component {
         </Header>
         <Content style={styles.content}>
           <ScrollView contentContainerStyle={styles.contentScroll}>
-            <List style={styles.listBackground}>
-              <ListItem thumbnail style={styles.listItem}>
-                <Left>
-                  <Thumbnail
-                    square
-                    source={{
-                      uri:
-                        "https://im.hthayat.com/2017/03/02/ver1523873494/1047159_d58fa4ab8966c79cbfbd584d45a7570c.jpg"
-                    }}
-                  />
-                </Left>
-                <Body>
-                  <Text style={styles.listHeader}>Hareket</Text>
-                  <Text style={styles.listText}>Hareket detayı</Text>
-                </Body>
-                <Right>
-                  <Button rounded success>
-                    <Text style={styles.listButtonText} onPress={() => this.props.navigation.navigate("ExerciseDetail")}>İncele</Text>
-                  </Button>
-                </Right>
-              </ListItem>
-            </List>
+            <FlatList
+              ListEmptyComponent={() => this.noItemDisplay()}
+              refreshControl={
+                <RefreshControl
+                  colors={["#3bd555"]}
+                  tintColor={["#3bd555"]}
+                  refreshing={this.state.refreshing}
+                  onRefresh={() => this.handleRefresh()}
+                />
+              }
+              data={this.state.exercises}
+              keyExtractor={(item, index) => index.toString()} //her satıra index veriyo
+              renderItem={({ item, index }) => (
+                <List style={styles.listBackground}>
+                  <ListItem thumbnail style={styles.listItem}>
+                    <Left>
+                      <Thumbnail
+                        square
+                        source={{
+                          uri:
+                            "https://im.hthayat.com/2017/03/02/ver1523873494/1047159_d58fa4ab8966c79cbfbd584d45a7570c.jpg"
+                        }}
+                      />
+                    </Left>
+                    <Body>
+                      <Text style={styles.listHeader}>
+                        {item.exercise.exercise_name}
+                      </Text>
+                      <Text style={styles.listText}>
+                        Set: {item.sets} - Tekrar: {item.reps}
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Button rounded success>
+                        <Text
+                          style={styles.listButtonText}
+                          onPress={() =>
+                            this.props.navigation.navigate("ExerciseDetail", {
+                              exercise: item.exercise
+                            })
+                          }
+                        >
+                          İncele
+                        </Text>
+                      </Button>
+                    </Right>
+                  </ListItem>
+                </List>
+              )}
+            />
           </ScrollView>
         </Content>
         <Footer style={styles.themeColor}>
@@ -104,5 +209,3 @@ const styles = StyleSheet.create({
   contentScroll: { paddingVertical: 10 },
   footerButton: { width: 50, height: 50, tintColor: "#fff" }
 });
-
-export default ExerciseScreen;

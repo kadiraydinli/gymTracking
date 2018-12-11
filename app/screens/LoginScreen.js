@@ -17,7 +17,7 @@ import AnimatedLinearGradient, {
 import { StackActions, NavigationActions } from "react-navigation";
 import Api from "../api";
 
-class LoginScreen extends React.Component {
+export class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -45,45 +45,45 @@ class LoginScreen extends React.Component {
 
   async login() {
     //Validation - Giriş
-    //try {
-    if (!this.state.email) {
-      Alert.alert("Dikkat", "E-posta alanı boş bırakılamaz.");
-    } else if (!this.state.password) {
-      Alert.alert("Dikkat", "Şifre alanı boş olamaz.");
-    } else {
-      let response = await this.api.post("/api/login", this.state);
-      if (response) {
-        await this.api.setItem("tokens", response);
-      }
-
-      if (this.state.remember) {
-        await this.api.setItem("userSensetive", {
-          email: this.state.email,
-          password: this.state.password,
-          remember: this.state.remember
-        });
+    try {
+      if (!this.state.email) {
+        Alert.alert("Dikkat", "E-posta alanı boş bırakılamaz.");
+      } else if (!this.state.password) {
+        Alert.alert("Dikkat", "Şifre alanı boş olamaz.");
       } else {
-        await this.api.setItem("userSensetive", {
-          email: null,
-          password: null,
-          remember: false
-        });
+        let response = await this.api.post("login", this.state);
+
+        if (this.state.remember) {
+          await this.api.setItem("userSensetive", {
+            email: this.state.email,
+            password: this.state.password,
+            remember: this.state.remember
+          });
+        } else {
+          await this.api.setItem("userSensetive", {
+            email: null,
+            password: null,
+            remember: false
+          });
+        }
+
+        if (response) {
+          await this.api.setItem("tokens", response);
+
+          let toHome = await StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: "Home" })]
+          });
+          this.props.navigation.dispatch(toHome);
+        }
       }
-      //this.props.navigation.navigate("Home");
-      //alert("oldu");
-      let toHome = await StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Home" })]
-      });
-      this.props.navigation.dispatch(toHome);
-    }
-    /*} catch (e) {
+    } catch (e) {
       await this.api.setItem("userSensetive", {
         email: null,
         password: null,
         remember: true
       });
-    }*/
+    }
   }
 
   render() {
@@ -173,5 +173,3 @@ const styles = StyleSheet.create({
   },
   loginImages: { width: 100, height: 100 }
 });
-
-export default LoginScreen;

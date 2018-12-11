@@ -13,13 +13,28 @@ import {
 import Communications from "react-native-communications";
 import Api from "../api";
 
-const words = require('../assets/json/words.json');
+const words = require("../assets/json/words.json");
 const number = Math.floor(Math.random() * 4);
 
-class HomeScreen extends React.Component {
+export class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null
+    header: null,
+    user: null
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null
+    };
+  }
+
+  async deneme() {
+    this.setState({
+      user: await this.api.get("mobile/user")
+    });
+    Alert.alert(this.state.user.name);
+  }
 
   render() {
     return (
@@ -27,11 +42,12 @@ class HomeScreen extends React.Component {
         <Content padder style={styles.content}>
           <Api ref={ref => (this.api = ref)} />
           <Body style={styles.textBody}>
-            <Text style={styles.messageText}>
-              {words.words[number]}
-            </Text>
+            <Text style={styles.messageText}>{words.words[number]}</Text>
           </Body>
         </Content>
+        {/*<Button full success onPress={() => this.deneme()}>
+          <Text>Tıkla</Text>
+        </Button>*/}
         <Button
           full
           success
@@ -74,5 +90,3 @@ const styles = StyleSheet.create({
   textBody: { backgroundColor: "rgba(255,255,255,0.3)", marginTop: 30 },
   footerButton: { width: 50, height: 50, tintColor: "#fff" }
 });
-
-export default HomeScreen;

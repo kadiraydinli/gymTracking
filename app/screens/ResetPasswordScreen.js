@@ -4,27 +4,49 @@ import { Item, Input, Text, Button, Thumbnail } from "native-base";
 import AnimatedLinearGradient, {
   presetColors
 } from "react-native-animated-linear-gradient";
+import Api from "../api";
 
-class ResetPasswordScreen extends React.Component {
+export class ResetPasswordScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: null
+    };
+  }
+
+  async sifreSıfırla() {
+    let durum = await this.api.post("passwordReset", {
+      email: this.state.email
+    });
+
+    if (durum) {
+      Alert.alert("Şifreniz e-posta adresinize gönderildi.");
+    }
+  }
 
   render() {
     return (
       <AnimatedLinearGradient customColor={presetColors.sunrise} speed={1500}>
+        <Api ref={ref => (this.api = ref)} />
         <View style={styles.ResetPassView}>
           <Thumbnail
             style={styles.loginImages}
             source={require("../assets/icons/logo_min.png")}
           />
           <Item stackedLabel style={styles.loginTextItem}>
-            <Input style={styles.loginTextInput} placeholder="E-Posta" />
+            <Input
+              style={styles.loginTextInput}
+              placeholder="E-Posta"
+              onChangeText={email => this.setState({ email })}
+            />
           </Item>
           <Button
             full
             style={styles.loginButton}
-            onPress={() => this.props.navigation.navigation("Login")}
+            onPress={() => this.sifreSıfırla()}
           >
             <Text>Şifre Gönder</Text>
           </Button>
@@ -53,5 +75,3 @@ const styles = StyleSheet.create({
   },
   loginImages: { width: 100, height: 100 }
 });
-
-export default ResetPasswordScreen;

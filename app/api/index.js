@@ -114,6 +114,8 @@ export default class Api extends React.Component {
       });
       Alert.alert(error.message, alerts);
     } else {
+      Alert.alert(JSON.stringify(error));
+
       Alert.alert("Dikkat", "Bir şeyler yanlış gitti.");
     }
   }
