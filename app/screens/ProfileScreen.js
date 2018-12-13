@@ -27,8 +27,28 @@ export class ProfileScreen extends React.Component {
     this.state = {
       oldPassword: null,
       password: null,
-      password_confirmation: null
+      password_confirmation: null,
+      name: null,
+      email: null,
+      startDate: null,
+      endDate: null,
+      days: null
     };
+  }
+
+  async cek(){
+    let user = await this.api.get('mobile/user');
+    this.setState({
+      name: user.name,
+      email: user.email,
+      startDate: user.startDate,
+      endDate: user.dates.end_date,
+      days: user.days
+    });
+  }
+
+  componentDidMount(){
+    this.cek();
   }
 
   async sifreDegis() {
@@ -141,8 +161,12 @@ export class ProfileScreen extends React.Component {
             >
               <Text>Kaydet</Text>
             </Button>
-            {/*<Text style={styles.userDate}>Başlangıç Tarihi: 06.12.2018</Text>
-            <Text style={styles.userDate}>Bitiş Tarihi: 06.06.2019</Text>*/}
+            <Text style={styles.userDate}>
+              Başlangıç Tarihi: {this.state.startDate}
+            </Text>
+            <Text style={styles.userDate}>
+              Bitiş Tarihi: {this.state.endDate}
+            </Text>
             <Button
               full
               style={styles.logoutButton}

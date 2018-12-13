@@ -91,9 +91,9 @@ export class LoginScreen extends React.Component {
       <AnimatedLinearGradient customColor={presetColors.sunrise} speed={1500}>
         <Api ref={ref => (this.api = ref)} />
         <View style={styles.loginView}>
-          <Thumbnail
+          <Thumbnail square
             style={styles.loginImages}
-            source={require("../assets/icons/logo_min.png")}
+            source={require("../assets/icons/b_logo.fw.png")}
           />
           <Item stackedLabel style={styles.loginTextItem}>
             <Input
@@ -171,5 +171,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 15
   },
-  loginImages: { width: 100, height: 100 }
+  loginImages: { width: 250, height: 100 }
 });

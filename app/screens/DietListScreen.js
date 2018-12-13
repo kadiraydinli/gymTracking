@@ -21,7 +21,8 @@ import {
   Body,
   Right,
   Separator,
-  ListItem
+  ListItem,
+  CheckBox
 } from "native-base";
 import Api from "../api";
 
@@ -34,9 +35,15 @@ export class DietListScreen extends React.Component {
     super(props);
     this.state = {
       diets: null,
+      dietType: null,
       refreshing: false,
       loadingPage: true
     };
+  }
+
+  async control(id){
+    let response = await this.api.get("mobile/diets/",id);
+    this.getCredentials();
   }
 
   componentDidMount() {
@@ -50,6 +57,7 @@ export class DietListScreen extends React.Component {
       if (response.length) {
         this.setState({
           diets: response,
+          dietType: response[0].type,
           refreshing: false,
           loadingPage: false
         });
@@ -123,7 +131,7 @@ export class DietListScreen extends React.Component {
             }}
             style={styles.dayBackground}
           >
-            <Text style={styles.typeText}>DEFİNASYON</Text>
+            <Text style={styles.typeText}>{this.state.dietType}</Text>
             <Text style={styles.dayText}>Pazartesi</Text>
           </ImageBackground>
           <ScrollView contentContainerStyle={styles.contentScroll}>
@@ -147,20 +155,25 @@ export class DietListScreen extends React.Component {
                     </Text>
                   </Separator>
                   <ListItem>
-                    <Text>{item.content}</Text>
+                    <Text style={{justifyContent:"flex-start"}}>{item.content}</Text>
+                    {item.control == 1 ? (
+                      <CheckBox
+                        checked={true}
+                        style={{justifyContent:'flex-end'}}
+                      />
+                    ) : (
+                      <CheckBox
+                        checked={false}
+                        style={{justifyContent:'flex-end'}}
+                        onPress={()=>this.control(item.id)}
+                      />
+                    )}
                   </ListItem>
                 </View>
               )}
             />
           </ScrollView>
         </Content>
-        <Footer style={styles.themeColor}>
-          <FooterTab style={styles.themeColor}>
-            <Button>
-              <Text>Tamamla</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     );
   }
