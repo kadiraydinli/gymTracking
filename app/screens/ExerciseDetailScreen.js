@@ -38,9 +38,7 @@ export class ExerciseDetailScreen extends React.Component {
             </Button>
           </Left>
           <Body>
-            <Text style={styles.headerText}>
-              {this.state.exercise.exercise_name}
-            </Text>
+            <Text style={styles.headerText}>{this.state.exercise_id}</Text>
           </Body>
           <Right />
         </Header>

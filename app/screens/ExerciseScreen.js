@@ -5,7 +5,8 @@ import {
   ScrollView,
   FlatList,
   RefreshControl,
-  View
+  View,
+  Alert
 } from "react-native";
 import {
   Button,
@@ -44,12 +45,17 @@ export class ExerciseScreen extends React.Component {
   componentDidMount() {
     //sayfa açılınca yapılacak işlem
     this.getCredentials();
+    //Alert.alert("geldi");
   }
 
   async getCredentials() {
     try {
+      //Alert.alert("geldi");
       let response = await this.api.get("mobile/exercises/" + this.state.gun);
+      Alert.alert(JSON.stringify(response));
+      //benim olduğum sayfaya gel
       if (response.length) {
+        //Alert.alert("geldi");
         this.setState({
           exercises: response,
           refreshing: false,
@@ -63,6 +69,7 @@ export class ExerciseScreen extends React.Component {
         });
       }
     } catch (e) {
+      //Alert.alert("geldi");
       this.setState({
         exercises: null,
         refreshing: false,

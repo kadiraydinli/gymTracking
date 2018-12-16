@@ -36,18 +36,18 @@ export class ProfileScreen extends React.Component {
     };
   }
 
-  async cek(){
-    let user = await this.api.get('mobile/user');
+  async cek() {
+    let user = await this.api.get("mobile/user");
     this.setState({
       name: user.name,
       email: user.email,
-      startDate: user.startDate,
-      endDate: user.dates.end_date,
+      startDate: user.start_date,
+      endDate: user.end_date,
       days: user.days
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.cek();
   }
 
@@ -117,14 +117,14 @@ export class ProfileScreen extends React.Component {
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>Profil</Title>
+            <Title style={styles.headerText}>Profil {this.state.days}</Title>
           </Body>
           <Right />
         </Header>
         <Content style={styles.contentBackground}>
           <ScrollView contentContainerStyle={styles.contentContainer}>
             <Text style={styles.userText}>{this.state.name}</Text>
-            <Text style={styles.userText}>fdk@ds.sd</Text>
+            <Text style={styles.userText}>{this.state.email}</Text>
             <Item stackedLabel style={styles.loginTextItem}>
               <Input
                 placeholder="Mevcut Şifre"
