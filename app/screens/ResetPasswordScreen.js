@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StatusBar } from "react-native";
 import { Item, Input, Text, Button, Thumbnail } from "native-base";
 import AnimatedLinearGradient, {
   presetColors
@@ -30,16 +30,18 @@ export class ResetPasswordScreen extends React.Component {
   render() {
     return (
       <AnimatedLinearGradient customColor={presetColors.sunrise} speed={1500}>
+        <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
         <Api ref={ref => (this.api = ref)} />
         <View style={styles.ResetPassView}>
           <Thumbnail
             style={styles.loginImages}
-            source={require("../assets/icons/logo_min.png")}
+            source={require("../assets/icons/b_logo.fw.png")}
           />
           <Item stackedLabel style={styles.loginTextItem}>
             <Input
               style={styles.loginTextInput}
               placeholder="E-Posta"
+              placeholderTextColor="#fff"
               onChangeText={email => this.setState({ email })}
             />
           </Item>
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginTop: 20,
-    backgroundColor: "#006E5F"
+    backgroundColor: "#ff7600"
   },
-  loginImages: { width: 100, height: 100 }
+  loginImages: { width: 250, height: 100 }
 });

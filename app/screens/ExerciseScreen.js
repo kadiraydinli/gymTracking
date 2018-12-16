@@ -6,7 +6,8 @@ import {
   FlatList,
   RefreshControl,
   View,
-  Alert
+  Alert,
+  StatusBar
 } from "react-native";
 import {
   Button,
@@ -45,17 +46,12 @@ export class ExerciseScreen extends React.Component {
   componentDidMount() {
     //sayfa açılınca yapılacak işlem
     this.getCredentials();
-    //Alert.alert("geldi");
   }
 
   async getCredentials() {
     try {
-      //Alert.alert("geldi");
       let response = await this.api.get("mobile/exercises/" + this.state.gun);
-      Alert.alert(JSON.stringify(response));
-      //benim olduğum sayfaya gel
       if (response.length) {
-        //Alert.alert("geldi");
         this.setState({
           exercises: response,
           refreshing: false,
@@ -69,7 +65,6 @@ export class ExerciseScreen extends React.Component {
         });
       }
     } catch (e) {
-      //Alert.alert("geldi");
       this.setState({
         exercises: null,
         refreshing: false,
@@ -99,7 +94,7 @@ export class ExerciseScreen extends React.Component {
     } else {
       return (
         <View style={styles.section}>
-          <Text>Size atanan egzersiz yok</Text>
+          <Text>Size atanan egzersiz yok.</Text>
           <Text>Yenilemek için sayfayı aşağı doğru çekin.</Text>
         </View>
       );
@@ -109,22 +104,14 @@ export class ExerciseScreen extends React.Component {
   render() {
     return (
       <Container>
+      <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
         <Api ref={ref => (this.api = ref)} />
         <Header style={styles.themeColor}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate("Home")}
-            >
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
           <Body>
             <Title style={styles.headerTitle}>1. Gün</Title>
           </Body>
-          <Right />
         </Header>
-        <Content style={styles.content}>
+        <Content style={styles.contentColor}>
           <ScrollView contentContainerStyle={styles.contentScroll}>
             <FlatList
               ListEmptyComponent={() => this.noItemDisplay()}
@@ -145,8 +132,7 @@ export class ExerciseScreen extends React.Component {
                       <Thumbnail
                         square
                         source={{
-                          uri:
-                            "https://im.hthayat.com/2017/03/02/ver1523873494/1047159_d58fa4ab8966c79cbfbd584d45a7570c.jpg"
+                          uri: item.exercise.image_link
                         }}
                       />
                     </Left>
@@ -159,7 +145,7 @@ export class ExerciseScreen extends React.Component {
                       </Text>
                     </Body>
                     <Right>
-                      <Button rounded success>
+                      <Button transparent>
                         <Text
                           style={styles.listButtonText}
                           onPress={() =>
@@ -178,21 +164,33 @@ export class ExerciseScreen extends React.Component {
             />
           </ScrollView>
         </Content>
+        <Button full success style={styles.successButton}>
+          <Text>Tamamla</Text>
+        </Button>
         <Footer style={styles.themeColor}>
           <FooterTab style={styles.themeColor}>
-            <Button>
+            <Button onPress={() => this.props.navigation.navigate("Home")}>
               <Image
-                style={styles.footerButton}
-                source={require("../assets/icons/backButton.png")}
+                style={styles.footerButtonfalse}
+                source={require("../assets/icons/home.png")}
               />
             </Button>
-            <Button success style={styles.statusButton}>
-              <Text style={styles.statusText}>Tamamlandı</Text>
+            <Button onPress={() => this.props.navigation.navigate("Diet")}>
+              <Image
+                style={styles.footerButtonfalse}
+                source={require("../assets/icons/diet.png")}
+              />
             </Button>
-            <Button>
+            <Button onPress={() => this.props.navigation.navigate("Exercise")}>
               <Image
                 style={styles.footerButton}
-                source={require("../assets/icons/nextButton.png")}
+                source={require("../assets/icons/gym.png")}
+              />
+            </Button>
+            <Button onPress={() => this.props.navigation.navigate("Profile")}>
+              <Image
+                style={styles.footerButtonfalse}
+                source={require("../assets/icons/profile.png")}
               />
             </Button>
           </FooterTab>
@@ -203,16 +201,18 @@ export class ExerciseScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  headerTitle: { fontSize: 25, color: "#fff", fontWeight: "bold" },
-  content: { backgroundColor: "#C7CCCB" },
+  headerTitle: { fontSize: 25, color: "#ff7600", fontWeight: "bold" },
+  contentColor: { backgroundColor: "#fff" },
   listItem: { marginTop: 10 },
-  listBackground: { backgroundColor: "#30A898" },
-  listButtonText: { color: "#fff" },
-  listHeader: { color: "#fff", fontWeight: "bold" },
-  listText: { color: "#fff" },
-  themeColor: { backgroundColor: "#006E5F" },
+  listBackground: { backgroundColor: "#d7d6d6" },
+  listButtonText: { color: "#ff7600" },
+  listHeader: { color: "#000", fontWeight: "bold" },
+  listText: { color: "#000f" },
+  themeColor: { backgroundColor: "#E6E6E6" },
   statusButton: { marginTop: 5 },
   statusText: { color: "#fff", fontWeight: "bold" },
   contentScroll: { paddingVertical: 10 },
-  footerButton: { width: 50, height: 50, tintColor: "#fff" }
+  successButton: {backgroundColor: "#ff7600"},
+  footerButton:{width:25,height:25,tintColor:'#ff7600'},
+  footerButtonfalse:{width:25,height:25,tintColor:'#b5b5b5'}
 });

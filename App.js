@@ -11,7 +11,7 @@ export default class App extends React.Component {
     return <Root />;
   }
 }
-global.url = "http://0ecdf132.ngrok.io/api/";
+global.url = "http://24f37536.ngrok.io/api/";
 
 export const Home = createStackNavigator({
   Home: {
@@ -25,7 +25,6 @@ export const TabNavigator = createBottomTabNavigator(
     Diet: { screen: Screens.DietListScreen },
     Profile: { screen: Screens.ProfileScreen },
     Exercise: { screen: Screens.ExerciseScreen },
-    ExerciseDetail: { screen: Screens.ExerciseDetailScreen }
     //ResetPassword: { screen: Screens.ResetPasswordScreen }
   },
   {
@@ -56,6 +55,6 @@ export const Root = createStackNavigator({
     navigationOptions: {
       header: null
     }
-  }
-  /**/
+  },
+  ExerciseDetail: { screen: Screens.ExerciseDetailScreen }
 });

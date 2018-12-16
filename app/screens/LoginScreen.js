@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Switch } from "react-native";
+import { StyleSheet, Switch, StatusBar } from "react-native";
 import {
   Container,
   Content,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginTop: 20,
-    backgroundColor: "#006E5F"
+    backgroundColor: "#ff7600"
   },
   registerText: {
     textAlign: "center",

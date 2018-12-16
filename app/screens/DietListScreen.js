@@ -3,9 +3,11 @@ import {
   StyleSheet,
   ScrollView,
   ImageBackground,
+  Image,
   FlatList,
   RefreshControl,
-  View
+  View,
+  StatusBar
 } from "react-native";
 import {
   Button,
@@ -25,6 +27,11 @@ import {
   CheckBox
 } from "native-base";
 import Api from "../api";
+
+
+const d = new Date();
+const days = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+
 
 export class DietListScreen extends React.Component {
   static navigationOptions = {
@@ -98,8 +105,8 @@ export class DietListScreen extends React.Component {
     } else {
       return (
         <View style={styles.section}>
-          <Text>There is no certificate of yours at the moment. </Text>
-          <Text>Pull down the page to refresh. </Text>
+          <Text>Size atanmış bir diyet yok.</Text>
+          <Text>Yenilemek için sayfayı aşağı doğru çekin.</Text>
         </View>
       );
     }
@@ -108,31 +115,20 @@ export class DietListScreen extends React.Component {
   render() {
     return (
       <Container>
+      <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
         <Api ref={ref => (this.api = ref)} />
         <Header style={styles.themeColor}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate("Home")}
-            >
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
           <Body>
-            <Title style={styles.headerTitle}>1. Gün</Title>
+          <Title style={styles.headerTitle}>1. Gün</Title>
           </Body>
-          <Right />
         </Header>
-        <Content style={styles.content}>
+        <Content style={styles.contentColor}>
           <ImageBackground
-            source={{
-              uri:
-                "https://i.nefisyemektarifleri.com/2018/01/23/cindeki-yemekler-ve-cin-yemek-tarifleri-uzerine.jpg"
-            }}
+            source={require('../assets/icons/dietphoto.jpg')}
             style={styles.dayBackground}
           >
             <Text style={styles.typeText}>{this.state.dietType}</Text>
-            <Text style={styles.dayText}>Pazartesi</Text>
+            <Text style={styles.dayText}>{days[d.getDay()]}</Text>
           </ImageBackground>
           <ScrollView contentContainerStyle={styles.contentScroll}>
             <FlatList
@@ -149,42 +145,78 @@ export class DietListScreen extends React.Component {
               keyExtractor={(item, index) => index.toString()} //her satıra index veriyo
               renderItem={({ item, index }) => (
                 <View>
-                  <Separator bordered>
-                    <Text>
-                      {item.meal} - {item.time}
-                    </Text>
-                  </Separator>
-                  <ListItem>
-                    <Text style={{justifyContent:"flex-start"}}>{item.content}</Text>
+                  <ListItem style={styles.themeColor}>
+                    <Left>
+                      <Text style={{fontSize:20,marginLeft:10}}>
+                        {item.meal} - {item.time}
+                      </Text>
+                    </Left>
+                    <Body></Body>
+                    <Right>
                     {item.control == 1 ? (
                       <CheckBox
                         checked={true}
-                        style={{justifyContent:'flex-end'}}
+                        color='#ff7600'
                       />
                     ) : (
                       <CheckBox
                         checked={false}
-                        style={{justifyContent:'flex-end'}}
+                        color='#fff'
+                        style={{borderColor:'#ff7600'}}
                         onPress={()=>this.control(item.id)}
                       />
                     )}
+                    </Right>
+                  </ListItem>
+                  <ListItem>
+                    <Text style={{justifyContent:"flex-start",marginLeft:10}}>{item.content}</Text>
                   </ListItem>
                 </View>
               )}
             />
           </ScrollView>
         </Content>
+        
+        <Footer style={styles.themeColor}>
+          <FooterTab style={styles.themeColor}>
+            <Button onPress={() => this.props.navigation.navigate("Home")}>
+              <Image
+                style={styles.footerButtonfalse}
+                source={require("../assets/icons/home.png")}
+              />
+            </Button>
+            <Button onPress={() => this.props.navigation.navigate("Diet")}>
+              <Image
+                style={styles.footerButton}
+                source={require("../assets/icons/diet.png")}
+              />
+            </Button>
+            <Button onPress={() => this.props.navigation.navigate("Exercise")}>
+              <Image
+                style={styles.footerButtonfalse}
+                source={require("../assets/icons/gym.png")}
+              />
+            </Button>
+            <Button onPress={() => this.props.navigation.navigate("Profile")}>
+              <Image
+                style={styles.footerButtonfalse}
+                source={require("../assets/icons/profile.png")}
+              />
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  headerTitle: { fontSize: 25, color: "#fff", fontWeight: "bold" },
-  content: { backgroundColor: "#C7CCCB" },
-  themeColor: { backgroundColor: "#006E5F" },
-  contentScroll: { paddingVertical: 10 },
-  footerButton: { width: 50, height: 50, tintColor: "#fff" },
+  headerTitle: { fontSize: 25, color: '#ff7600', fontWeight: "bold",textAlign:'center' },
+  contentColor: { backgroundColor: '#fff' },
+  themeColor: { backgroundColor: '#E6E6E6' },
+  contentScroll: { marginLeft:-20 },
+  footerButton:{width:25,height:25,tintColor:'#ff7600'},
+  footerButtonfalse:{width:25,height:25,tintColor:'#b5b5b5'},
   dayBackground: {
     resizeMode: "stretch",
     width: null,
@@ -193,16 +225,16 @@ const styles = StyleSheet.create({
   },
   dayText: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 20,
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 0,
     fontWeight: "bold"
   },
   typeText: {
     color: "#fff",
-    fontSize: 30,
+    fontSize: 35,
     textAlign: "center",
-    marginTop: 60,
+    marginTop: 40,
     fontWeight: "bold"
   }
 });

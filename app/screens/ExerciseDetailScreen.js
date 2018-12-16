@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Image, ScrollView } from "react-native";
+import { StyleSheet, Image, ScrollView, Dimensions, StatusBar } from "react-native";
 import {
   Button,
   Text,
@@ -8,7 +8,6 @@ import {
   Content,
   Body,
   Left,
-  Icon,
   Right
 } from "native-base";
 
@@ -28,21 +27,23 @@ export class ExerciseDetailScreen extends React.Component {
   render() {
     return (
       <Container>
+      <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
         <Header style={styles.themeColor}>
           <Left>
             <Button
               transparent
+              style={styles.headerIcon}
               onPress={() => this.props.navigation.navigate("Exercise")}
             >
-              <Icon name="arrow-back" />
+              <Image source={require('../assets/icons/back.png')} style={styles.headerIcon} />
             </Button>
           </Left>
           <Body>
-            <Text style={styles.headerText}>{this.state.exercise_id}</Text>
+            <Text style={styles.headerText}>{this.state.exercise.exercise_name}</Text>
           </Body>
           <Right />
         </Header>
-        <Content style={styles.contentBackground}>
+        <Content style={styles.contentColor}>
           <ScrollView contentContainerStyle={styles.contentContainer}>
             <Image
               source={{
@@ -61,9 +62,12 @@ export class ExerciseDetailScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  themeColor: { backgroundColor: "#006E5F" },
-  contentBackground: { backgroundColor: "#C7CCCB" },
+  themeColor: { backgroundColor: "#E6E6E6" },
+  contentColor: { backgroundColor: "#fff" },
   contentText: { marginBottom: 10, marginTop: 10, marginLeft: 5 },
-  headerText: { fontSize: 25, color: "#fff", fontWeight: "bold" },
-  activitiesImage: { height: 300, width: null }
+  headerText: { fontSize: 25, color: "#ff7600", fontWeight: "bold" },
+  headerIcon:{tintColor:'#ff7600',width:25,height:25},
+  activitiesImage: { height: 300, width: Dimensions.get('window').width,resizeMode: "stretch"},
+  footerButton:{width:20,height:20,tintColor:'#ff7600'},
+  footerButtonfalse:{width:25,height:25,tintColor:'#b5b5b5'}
 });
