@@ -11,7 +11,7 @@ export default class App extends React.Component {
     return <Root />;
   }
 }
-global.url = "http://24f37536.ngrok.io/api/";
+global.url = "http://cae2b082.ngrok.io/api/";
 
 export const Home = createStackNavigator({
   Home: {

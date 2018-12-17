@@ -99,7 +99,7 @@ export class DietListScreen extends React.Component {
             color={"#3bd555"}
             indeterminate={true}
           />*/}
-          <Text>Yükleniyor... </Text>
+          <Text style={{marginLeft:20}}>Yükleniyor... </Text>
         </View>
       );
     } else {

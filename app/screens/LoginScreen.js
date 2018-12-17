@@ -116,17 +116,17 @@ export class LoginScreen extends React.Component {
             />
           </Item>
           <View>
-            <Text style={{ color: "#fff" }}>Beni Hatırla</Text>
-            <Item>
-              <Switch
-                style={styles.switch}
+          <Item>
+          <Text style={{ color: "#fff" }}>Beni Hatırla</Text>
+            <Switch
+                style={{marginLeft:10}}
                 value={this.state.remember}
                 trackColor={{ true: "#288c01" }}
                 ios_backgroundColor="#afafaf"
                 thumbColor="white"
                 onValueChange={remember => this.setState({ remember })}
               />
-            </Item>
+          </Item>
           </View>
           <Button full style={styles.loginButton} onPress={() => this.login()}>
             <Text>Giriş Yap</Text>

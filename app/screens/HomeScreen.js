@@ -58,7 +58,7 @@ export class HomeScreen extends React.Component {
                   <ImageBackground
                     source={require('../assets/icons/circle2.png')}
                     style={styles.cardImage}>
-                    <Text style={styles.totalDayText}>55</Text>
+                    <Text style={styles.totalDayText}>12</Text>
                   </ImageBackground>
                 </Left>
                 <Body></Body>
@@ -66,13 +66,13 @@ export class HomeScreen extends React.Component {
                   <ImageBackground
                     source={require('../assets/icons/circle2.png')}
                     style={styles.cardImage}>
-                    <Text style={styles.totalExerciseText}>44</Text>
+                    <Text style={styles.totalExerciseText}>24</Text>
                   </ImageBackground>
                 </Right>
               </CardItem>
               <CardItem footer style={styles.cardItem}>
-                <Left><Text style={styles.totalDayFooter}>Üyelik Sayacı</Text></Left>
-                <Right><Text style={styles.totalExerciseFooter}>Aktivite Sayacı</Text></Right>
+                <Left><Text style={styles.totalDayFooter}>Geçirilen Gün</Text></Left>
+                <Right><Text style={styles.totalExerciseFooter}>Kalan Diyet Günü</Text></Right>
               </CardItem>
             </Card>
         {/*<Button full success onPress={() => this.deneme()}>

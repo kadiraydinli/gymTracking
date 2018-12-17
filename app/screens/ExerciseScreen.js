@@ -38,8 +38,7 @@ export class ExerciseScreen extends React.Component {
     this.state = {
       exercises: null,
       refreshing: false,
-      loadingPage: true,
-      gun: 1
+      loadingPage: true
     };
   }
 
@@ -48,12 +47,22 @@ export class ExerciseScreen extends React.Component {
     this.getCredentials();
   }
 
+  async control() {
+    let response = await this.api.get(
+      "mobile/exercise/" +
+        this.state.exercises[0].user_id +
+        "/" +
+        this.state.exercises[0].exercise_day
+    );
+  }
+
   async getCredentials() {
     try {
-      let response = await this.api.get("mobile/exercises/" + this.state.gun);
+      let response = await this.api.get("mobile/exercises");
       if (response.length) {
         this.setState({
           exercises: response,
+          day: response.exercise_day,
           refreshing: false,
           loadingPage: false
         });
@@ -88,14 +97,13 @@ export class ExerciseScreen extends React.Component {
             color={"#3bd555"}
             indeterminate={true}
           />*/}
-          <Text>Yükleniyor... </Text>
+          <Text style={{marginLeft:10}}>Listeleniyor... </Text>
         </View>
       );
     } else {
       return (
         <View style={styles.section}>
-          <Text>Size atanan egzersiz yok.</Text>
-          <Text>Yenilemek için sayfayı aşağı doğru çekin.</Text>
+          <Text style={{marginLeft:10}}>Atanan egzersiziniz yok ya da tüm egzersizler tamamlanmış.</Text>
         </View>
       );
     }
@@ -164,7 +172,7 @@ export class ExerciseScreen extends React.Component {
             />
           </ScrollView>
         </Content>
-        <Button full success style={styles.successButton}>
+        <Button full success style={styles.successButton} onPress={()=>this.control()}>
           <Text>Tamamla</Text>
         </Button>
         <Footer style={styles.themeColor}>
