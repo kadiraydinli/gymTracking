@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
+import { StyleSheet, View, StatusBar, Alert } from "react-native";
 import { Item, Input, Text, Button, Thumbnail } from "native-base";
 import AnimatedLinearGradient, {
   presetColors
@@ -21,7 +21,6 @@ export class ResetPasswordScreen extends React.Component {
     let durum = await this.api.post("passwordReset", {
       email: this.state.email
     });
-
     if (durum) {
       Alert.alert("Şifreniz e-posta adresinize gönderildi.");
     }
@@ -50,7 +49,7 @@ export class ResetPasswordScreen extends React.Component {
             style={styles.loginButton}
             onPress={() => this.sifreSıfırla()}
           >
-            <Text>Şifre Gönder</Text>
+            <Text>ŞİFRE GÖNDER</Text>
           </Button>
         </View>
       </AnimatedLinearGradient>
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginTop: 20,
-    backgroundColor: "rgba(0,0,0,0.6)"
+    backgroundColor: "rgba(0,0,0,0.3)"
   },
   ResetPassView: { flex: 1, justifyContent: "center", alignItems: "center" },
   loginTextInput: { color: "#fff" },

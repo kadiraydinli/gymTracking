@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, Image, Alert, ImageBackground, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Alert,
+  ImageBackground,
+  StatusBar
+} from "react-native";
 import {
   Button,
   Text,
@@ -28,57 +34,89 @@ export class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      info: null,
+      user: null,
+      diet: null,
+      exe: null
     };
   }
 
-  async deneme() {
+  componentDidMount() {
+    this.getir();
+  }
+
+  async getir() {
+    let response = await this.api.get("mobile/info");
+    Alert.alert(JSON.stringify(response.user));
+    //if (response.length) {
     this.setState({
-      user: await this.api.get("mobile/user")
+      user: JSON.stringify(response.user),
+      diet: JSON.stringify(response.diet),
+      exe: JSON.stringify(response.exercise)
     });
-    Alert.alert(this.state.user.name);
+    Alert.alert(this.state.user);
+    /*} else {
+      Alert.alert("sdf");
+      this.setState({
+        user: null,
+        diet: null,
+        exe: null
+      });
+    }*/
   }
 
   render() {
     return (
       <Container>
         <Content style={styles.contentColor}>
-        <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
+          <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
           <Api ref={ref => (this.api = ref)} />
-            <Card style={styles.wordCard}>
-              <Text style={styles.messageText}>{words.words[number]}</Text>
-            </Card>
+          <Card style={styles.wordCard}>
+            <Text style={styles.messageText}>{words.words[number]}</Text>
+          </Card>
         </Content>
         <Card transparent style={styles.card}>
-              <CardItem header style={styles.cardItem}>
-                <Text style={{textAlign:'center',color:'#ff7600'}}>GYM TRACKING</Text>
-              </CardItem>
-              <CardItem style={styles.cardItem}>
-                <Left>
-                  <ImageBackground
-                    source={require('../assets/icons/circle2.png')}
-                    style={styles.cardImage}>
-                    <Text style={styles.totalDayText}>12</Text>
-                  </ImageBackground>
-                </Left>
-                <Body></Body>
-                <Right>
-                  <ImageBackground
-                    source={require('../assets/icons/circle2.png')}
-                    style={styles.cardImage}>
-                    <Text style={styles.totalExerciseText}>24</Text>
-                  </ImageBackground>
-                </Right>
-              </CardItem>
-              <CardItem footer style={styles.cardItem}>
-                <Left><Text style={styles.totalDayFooter}>Geçirilen Gün</Text></Left>
-                <Right><Text style={styles.totalExerciseFooter}>Kalan Diyet Günü</Text></Right>
-              </CardItem>
-            </Card>
+          <CardItem header style={styles.cardItem}>
+            <Text style={{ textAlign: "center", color: "#ff7600" }}>
+              GYM TRACKING
+            </Text>
+          </CardItem>
+          <CardItem style={styles.cardItem}>
+            <Left>
+              <ImageBackground
+                source={require("../assets/icons/circle2.png")}
+                style={styles.cardImage}
+              >
+                <Text style={styles.totalDayText}>{this.state.user}</Text>
+              </ImageBackground>
+            </Left>
+            <Body />
+            <Right>
+              <ImageBackground
+                source={require("../assets/icons/circle2.png")}
+                style={styles.cardImage}
+              >
+                <Text style={styles.totalDietText}>{this.state.diet}</Text>
+              </ImageBackground>
+            </Right>
+          </CardItem>
+          <CardItem footer style={styles.cardItem}>
+            <Left>
+              <Text style={styles.totalDayFooter}>Kalan Gün</Text>
+            </Left>
+            <Right>
+              <Text style={styles.totalDietFooter}>Kalan Diyet Günü</Text>
+            </Right>
+          </CardItem>
+        </Card>
         {/*<Button full success onPress={() => this.deneme()}>
           <Text>Tıkla</Text>
         </Button>*/}
-        <Button full success onPress={() => Communications.phonecall("05379952309", true)}>
+        <Button
+          full
+          success
+          onPress={() => Communications.phonecall("05379952309", true)}
+        >
           <Text>BİZE ULAŞIN</Text>
         </Button>
         <Footer style={styles.themeColor}>
@@ -115,19 +153,46 @@ export class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  content:{},
-    themeColor:{backgroundColor:'#E6E6E6'},
-    contentColor:{backgroundColor:'#fff'},
-    contentScroll: {paddingVertical: 10},
-    messageText:{color:'black',fontSize:28,textAlign:'center'},
-    footerButton:{width:25,height:25,tintColor:'#ff7600'},
-    footerButtonfalse:{width:25,height:25,tintColor:'#b5b5b5'},
-    wordCard:{backgroundColor:'rgba(230,230,230,0.5)',marginTop:30,marginLeft:10,marginRight:10,padding:20},
-    card:{backgroundColor:'rgba(0,0,0,0)',marginTop:20,marginLeft:10,marginRight:10},
-    cardItem:{backgroundColor:'rgba(0,0,0,0)'},
-    cardImage:{width:150,height:150,tintColor:'#ff7600'},
-    totalDayText:{justifyContent: 'center',alignItems: 'center' ,marginTop:40,marginRight:10,fontSize:50,fontWeight:'bold'},
-    totalExerciseText:{justifyContent: 'center',alignItems: 'center',marginTop:40,marginLeft:50,fontSize:50,fontWeight:'bold'},
-    totalDayFooter:{textAlign:'center',marginLeft:30},
-    totalExerciseFooter:{textAlign:'center',marginRight:30}
+  content: {},
+  themeColor: { backgroundColor: "#E6E6E6" },
+  contentColor: { backgroundColor: "#fff" },
+  contentScroll: { paddingVertical: 10 },
+  messageText: { color: "black", fontSize: 28, textAlign: "center" },
+  footerButton: { width: 25, height: 25, tintColor: "#ff7600" },
+  footerButtonfalse: { width: 25, height: 25, tintColor: "#b5b5b5" },
+  wordCard: {
+    backgroundColor: "rgba(230,230,230,0.5)",
+    marginTop: 30,
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 20
+  },
+  card: {
+    backgroundColor: "rgba(0,0,0,0)",
+    marginTop: 20,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  cardItem: { backgroundColor: "rgba(0,0,0,0)" },
+  cardImage: { width: 150, height: 150, tintColor: "#ff7600" },
+  totalDayText: {
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    marginTop: 40,
+    marginRight: 10,
+    fontSize: 50,
+    fontWeight: "bold"
+  },
+  totalDietText: {
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "left",
+    marginTop: 40,
+    marginLeft: 50,
+    fontSize: 50,
+    fontWeight: "bold"
+  },
+  totalDayFooter: { textAlign: "center", marginLeft: 30 },
+  totalDietFooter: { textAlign: "center", marginRight: 30 }
 });

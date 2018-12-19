@@ -35,8 +35,10 @@ export class ExerciseScreen extends React.Component {
     super(props);
     this.state = {
       exercises: null,
+      day: null,
       refreshing: false,
-      loadingPage: true
+      loadingPage: true,
+      ctrl: true
     };
   }
 
@@ -52,6 +54,9 @@ export class ExerciseScreen extends React.Component {
         "/" +
         this.state.exercises[0].exercise_day
     );
+    if (!response) {
+      ctrl = false;
+    }
   }
 
   async getCredentials() {
@@ -60,22 +65,26 @@ export class ExerciseScreen extends React.Component {
       if (response.length) {
         this.setState({
           exercises: response,
-          day: response.exercise_day,
+          day: response[0].exercise_day,
           refreshing: false,
           loadingPage: false
         });
       } else {
         this.setState({
           exercises: null,
+          day: null,
           refreshing: false,
-          loadingPage: false
+          loadingPage: false,
+          ctrl: false
         });
       }
     } catch (e) {
       this.setState({
         exercises: null,
+        day: null,
         refreshing: false,
-        loadingPage: false
+        loadingPage: false,
+        ctrl: false
       });
     }
   }
@@ -95,13 +104,15 @@ export class ExerciseScreen extends React.Component {
             color={"#3bd555"}
             indeterminate={true}
           />*/}
-          <Text style={{marginLeft:10}}>Listeleniyor... </Text>
+          <Text style={{ marginLeft: 10 }}>Listeleniyor... </Text>
         </View>
       );
     } else {
       return (
         <View style={styles.section}>
-          <Text style={{marginLeft:10}}>Atanan egzersiziniz yok ya da tüm egzersizler tamamlanmış.</Text>
+          <Text style={{ marginLeft: 10 }}>
+            Atanan egzersiziniz yok ya da tüm egzersizler tamamlanmış.
+          </Text>
         </View>
       );
     }
@@ -110,11 +121,15 @@ export class ExerciseScreen extends React.Component {
   render() {
     return (
       <Container>
-      <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
+        <StatusBar barStyle="dark-content" backgroundColor="#E6E6E6" />
         <Api ref={ref => (this.api = ref)} />
         <Header style={styles.themeColor}>
           <Body>
-            <Title style={styles.headerTitle}>1. Gün</Title>
+            {this.state.ctrl == true ? (
+              <Title style={styles.headerTitle}>{this.state.day}. Gün</Title>
+            ) : (
+              <Title style={styles.headerTitle} />
+            )}
           </Body>
         </Header>
         <Content style={styles.contentColor}>
@@ -170,11 +185,16 @@ export class ExerciseScreen extends React.Component {
             />
           </ScrollView>
         </Content>
-        <Button full success style={styles.successButton} onPress={()=>
-            this.control()
-          }>
-          <Text>Tamamla</Text>
-        </Button>
+        {this.state.ctrl == true ? (
+          <Button
+            full
+            success
+            style={styles.successButton}
+            onPress={() => this.control()}
+          >
+            <Text>Tamamla</Text>
+          </Button>
+        ) : null}
         <Footer style={styles.themeColor}>
           <FooterTab style={styles.themeColor}>
             <Button onPress={() => this.props.navigation.navigate("Home")}>
@@ -220,7 +240,7 @@ const styles = StyleSheet.create({
   statusButton: { marginTop: 5 },
   statusText: { color: "#fff", fontWeight: "bold" },
   contentScroll: { paddingVertical: 10 },
-  successButton: {backgroundColor: "#ff7600"},
-  footerButton:{width:25,height:25,tintColor:'#ff7600'},
-  footerButtonfalse:{width:25,height:25,tintColor:'#b5b5b5'}
+  successButton: { backgroundColor: "#ff7600" },
+  footerButton: { width: 25, height: 25, tintColor: "#ff7600" },
+  footerButtonfalse: { width: 25, height: 25, tintColor: "#b5b5b5" }
 });

@@ -24,7 +24,7 @@ export const TabNavigator = createBottomTabNavigator(
     Home: { screen: Home },
     Diet: { screen: Screens.DietListScreen },
     Profile: { screen: Screens.ProfileScreen },
-    Exercise: { screen: Screens.ExerciseScreen },
+    Exercise: { screen: Screens.ExerciseScreen }
     //ResetPassword: { screen: Screens.ResetPasswordScreen }
   },
   {

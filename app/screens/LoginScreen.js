@@ -91,7 +91,8 @@ export class LoginScreen extends React.Component {
       <AnimatedLinearGradient customColor={presetColors.sunrise} speed={1500}>
         <Api ref={ref => (this.api = ref)} />
         <View style={styles.loginView}>
-          <Thumbnail square
+          <Thumbnail
+            square
             style={styles.loginImages}
             source={require("../assets/icons/b_logo.fw.png")}
           />
@@ -116,20 +117,20 @@ export class LoginScreen extends React.Component {
             />
           </Item>
           <View>
-          <Item>
-          <Text style={{ color: "#fff" }}>Beni Hatırla</Text>
-            <Switch
-                style={{marginLeft:10}}
+            <Item>
+              <Text style={{ color: "#fff" }}>Beni Hatırla</Text>
+              <Switch
+                style={{ marginLeft: 10 }}
                 value={this.state.remember}
-                trackColor={{ true: "#288c01" }}
+                trackColor={{ true: "#ff7600" }}
                 ios_backgroundColor="#afafaf"
                 thumbColor="white"
                 onValueChange={remember => this.setState({ remember })}
               />
-          </Item>
+            </Item>
           </View>
           <Button full style={styles.loginButton} onPress={() => this.login()}>
-            <Text>Giriş Yap</Text>
+            <Text>GİRİŞ YAP</Text>
           </Button>
           <Text
             style={styles.forgotPasswordText}
@@ -144,7 +145,6 @@ export class LoginScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  appBack: { backgroundColor: "#288c01" },
   loginView: { flex: 1, justifyContent: "center", alignItems: "center" },
   loginTextItem: {
     marginLeft: 15,
@@ -164,12 +164,6 @@ const styles = StyleSheet.create({
     marginRight: 15,
     marginTop: 20,
     backgroundColor: "#ff7600"
-  },
-  registerText: {
-    textAlign: "center",
-    color: "#187305",
-    fontSize: 15,
-    marginTop: 15
   },
   loginImages: { width: 250, height: 100 }
 });
