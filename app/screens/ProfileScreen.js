@@ -6,17 +6,12 @@ import {
   Container,
   Header,
   Content,
-  Left,
-  Icon,
   Body,
   Title,
-  Right,
   Input,
   Item,
   Footer,
-  FooterTab,
-  List,
-  ListItem
+  FooterTab
 } from "native-base";
 import { StackActions, NavigationActions } from "react-navigation";
 import Api from "../api";

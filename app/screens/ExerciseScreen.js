@@ -6,7 +6,8 @@ import {
   FlatList,
   RefreshControl,
   View,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
 import {
   Button,
@@ -30,6 +31,14 @@ export class ExerciseScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+
+  async complete(){
+    this.control()
+    Alert.alert(
+      "Tebrikler",
+      "Egzersiz tamamlandı olarak işaretlendi."
+    )
+  }
 
   constructor(props) {
     super(props);
@@ -190,7 +199,7 @@ export class ExerciseScreen extends React.Component {
             full
             success
             style={styles.successButton}
-            onPress={() => this.control()}
+            onPress={() => this.complete()}
           >
             <Text>Tamamla</Text>
           </Button>

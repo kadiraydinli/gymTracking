@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   StyleSheet,
   Image,
-  Alert,
   ImageBackground,
   StatusBar
 } from "react-native";
@@ -47,22 +46,11 @@ export class HomeScreen extends React.Component {
 
   async getir() {
     let response = await this.api.get("mobile/info");
-    Alert.alert(JSON.stringify(response.user));
-    //if (response.length) {
     this.setState({
       user: JSON.stringify(response.user),
       diet: JSON.stringify(response.diet),
       exe: JSON.stringify(response.exercise)
     });
-    Alert.alert(this.state.user);
-    /*} else {
-      Alert.alert("sdf");
-      this.setState({
-        user: null,
-        diet: null,
-        exe: null
-      });
-    }*/
   }
 
   render() {
@@ -115,7 +103,7 @@ export class HomeScreen extends React.Component {
         <Button
           full
           success
-          onPress={() => Communications.phonecall("05379952309", true)}
+          onPress={() => Communications.phonecall("02847143050", true)}
         >
           <Text>BİZE ULAŞIN</Text>
         </Button>

@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, Switch, StatusBar } from "react-native";
 import {
-  Container,
-  Content,
   Item,
   Input,
   Text,
   Button,
-  Image,
   Thumbnail,
   View
 } from "native-base";

@@ -7,7 +7,8 @@ import {
   FlatList,
   RefreshControl,
   View,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
 import {
   Button,
@@ -18,11 +19,9 @@ import {
   Footer,
   FooterTab,
   Left,
-  Icon,
   Title,
   Body,
   Right,
-  Separator,
   ListItem,
   CheckBox
 } from "native-base";
@@ -124,6 +123,14 @@ export class DietListScreen extends React.Component {
     }
   }
 
+  async complete(){
+    this.control(item.id)
+    Alert.alert(
+      "Afiyet Olsun",
+      "Öğün tamamlandı olarak işaretlendi."
+    )
+  }
+
   render() {
     return (
       <Container>
@@ -174,7 +181,7 @@ export class DietListScreen extends React.Component {
                           checked={false}
                           color="#fff"
                           style={{ borderColor: "#ff7600" }}
-                          onPress={() => this.control(item.id)}
+                          onPress={() => this.complete()}
                         />
                       )}
                     </Right>
