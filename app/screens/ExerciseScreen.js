@@ -6,7 +6,6 @@ import {
   FlatList,
   RefreshControl,
   View,
-  Alert,
   StatusBar
 } from "react-native";
 import {
@@ -23,7 +22,6 @@ import {
   Thumbnail,
   Body,
   Right,
-  Icon,
   Title
 } from "native-base";
 import Api from "../api";
@@ -172,7 +170,9 @@ export class ExerciseScreen extends React.Component {
             />
           </ScrollView>
         </Content>
-        <Button full success style={styles.successButton} onPress={()=>this.control()}>
+        <Button full success style={styles.successButton} onPress={()=>
+            this.control()
+          }>
           <Text>Tamamla</Text>
         </Button>
         <Footer style={styles.themeColor}>
