@@ -32,14 +32,6 @@ export class ExerciseScreen extends React.Component {
     header: null
   };
 
-  async complete(){
-    this.control()
-    Alert.alert(
-      "Tebrikler",
-      "Egzersiz tamamlandı olarak işaretlendi."
-    )
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -63,6 +55,10 @@ export class ExerciseScreen extends React.Component {
         "/" +
         this.state.exercises[0].exercise_day
     );
+    if (response) {
+      this.getCredentials();
+      Alert.alert("", "Egzersiz tamamlandı olarak işaretlendi.");
+    }
     if (!response) {
       ctrl = false;
     }
@@ -199,7 +195,7 @@ export class ExerciseScreen extends React.Component {
             full
             success
             style={styles.successButton}
-            onPress={() => this.complete()}
+            onPress={() => this.control()}
           >
             <Text>Tamamla</Text>
           </Button>

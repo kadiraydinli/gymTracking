@@ -54,8 +54,11 @@ export class DietListScreen extends React.Component {
     };
   }
 
-  async control(id) {
+  async control(id, meal) {
     let response = await this.api.get("mobile/diets/", id);
+    if (response) {
+      Alert.alert("", meal + " öğünü tamamlandı.");
+    }
     this.getCredentials();
   }
 
@@ -123,12 +126,9 @@ export class DietListScreen extends React.Component {
     }
   }
 
-  async complete(){
-    this.control(item.id)
-    Alert.alert(
-      "Afiyet Olsun",
-      "Öğün tamamlandı olarak işaretlendi."
-    )
+  async complete() {
+    this.control(item.id);
+    Alert.alert("Afiyet Olsun", "Öğün tamamlandı olarak işaretlendi.");
   }
 
   render() {
@@ -181,7 +181,7 @@ export class DietListScreen extends React.Component {
                           checked={false}
                           color="#fff"
                           style={{ borderColor: "#ff7600" }}
-                          onPress={() => this.complete()}
+                          onPress={() => this.control(item.id, item.meal)}
                         />
                       )}
                     </Right>
