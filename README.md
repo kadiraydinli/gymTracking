@@ -6,13 +6,13 @@
 ## Uygulama Ekran Görüntüleri
 
 #### Ana Ekran
-<img src="/screenshots/home.png" width="250">
+<img src="/screenshots/home.png" width="250" />
 
 #### Diyet Ekranı
-<img src="/screenshots/diet.png" width="250">
+<img src="/screenshots/diet.png" width="250" />
 
 #### Egsersiz Ekranı
-<img src="/screenshots/exercise.png" width="250">
+<img src="/screenshots/exercise.png" width="250" />
 
 #### Profil Ekranı
-<img src="/screenshots/profile.png" width="250">
+<img src="/screenshots/profile.png" width="250" />
