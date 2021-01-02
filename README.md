@@ -6,13 +6,13 @@
 ## Uygulamadan Ekran Görüntüleri
 
 #### Ana Ekran
-![Home Screen](https://github.com/kadiraydinli/gymTracking/screenshots/home.png "Home Screen")
+<img src="/screenshots/home.png" width="250">
 
 #### Diyet Ekranı
-![Diyet Ekranı](https://github.com/kadiraydinli/gymTracking/screenshots/diet.png "Diyet Ekranı")
+<img src="/screenshots/diet.png" width="250">
 
 #### Egsersiz Ekranı
-![Egsersiz Ekranı](https://github.com/kadiraydinli/gymTracking/screenshots/exercise.png "Egsersiz Ekranı")
+<img src="/screenshots/exercise.png" width="250">
 
 #### Profile Ekranı
-![Profil Ekranı](https://github.com/kadiraydinli/gymTracking/screenshots/profile.png "Profil Ekranı")
+<img src="/screenshots/profile.png" width="250">
