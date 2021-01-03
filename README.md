@@ -1,18 +1,18 @@
 # GYM Tracking
 
-Üniversite sektör işbirliği kapsamında geliştirilen, spor salonu çalışanları ve üye sporculara gündelik diyet ve egsersiz programlarını rahatlıkla takip edebileceği bir mobil uygulamadır. Uygulama React Native ile geliştirilmiştir. Bu uygulamanın yönetimi C# ile geliştirilmiş masaüstü programıdır. Bu yönetim programına bu [buradan](https://github.com/YavuzGuloglu/GYM "buradan"), back-end reposuna [buradan](https://github.com/kadiraydinli/gymtrackingapp "buradan") ve bu projenin raporuna ise [buradan](https://drive.google.com/file/d/15sU_LWC6GhBgrN2SVdOL_1aB-xOThUj5/view "buradan") ulaşabilirsiniz.
+It is a mobile application developed within the scope of university sector cooperation, where gym employees and member athletes can easily follow their daily diet and exercise programs. The application has been developed with React Native. The management of this application is a desktop program developed in C #. You can access this management program [here](https://github.com/YavuzGuloglu/GYM "here"), the back-end repo [here](https://github.com/kadiraydinli/gymtrackingapp "here"), and the report of this project [here](https://drive.google.com/file/d/15sU_LWC6GhBgrN2SVdOL_1aB-xOThUj5/view "here").
 
 
-## Uygulama Ekran Görüntüleri
+## Application Screenshots
 
-#### Ana Ekran
+#### Home
 <img src="/screenshots/home.png" width="250" />
 
-#### Diyet Ekranı
+#### Diet
 <img src="/screenshots/diet.png" width="250" />
 
-#### Egsersiz Ekranı
+#### Exercise
 <img src="/screenshots/exercise.png" width="250" />
 
-#### Profil Ekranı
+#### Profile
 <img src="/screenshots/profile.png" width="250" />
