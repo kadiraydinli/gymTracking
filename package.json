@@ -9,7 +9,7 @@
   "dependencies": {
     "native-base": "^2.15.2",
     "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.4",
+    "react-native": "0.70.2",
     "react-native-animated-linear-gradient": "^1.1.2",
     "react-native-communications": "^2.2.1",
     "react-native-linear-gradient": "^2.5.2",
